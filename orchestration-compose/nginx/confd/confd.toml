@@ -3,9 +3,7 @@ confdir = "/etc/confd"
 log-level = "debug"
 interval = 30
 nodes = [
-  "http://instance.etcd:4001",
+  "http://cstore:2379",
 ]
-noop = true
-prefix = "/"
 scheme = "http"
 

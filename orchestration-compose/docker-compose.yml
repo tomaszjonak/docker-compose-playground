@@ -1,7 +1,7 @@
 version: "3"
 services:
   configuration-store:
-    image: quay.io/coreos/etcd:v3.3.0
+    build: ./etcd
     networks:
       config:
         aliases:
@@ -12,9 +12,7 @@ services:
       config:
       workers:
   queue:
-    image: redis:latest
-
-
+    image: redis:alpine
 networks:
   config:
   workers:
