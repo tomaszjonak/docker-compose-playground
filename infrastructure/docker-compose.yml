@@ -7,6 +7,8 @@ services:
         aliases:
           - cstore
   load-balancer:
+    ports:
+      - "80:80"
     build: ./nginx
     networks:
       config:

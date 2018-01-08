@@ -4,6 +4,7 @@ events {
 
 http {
   upstream {{getv "/subdomain"}} {
+    zone upstream_backend 64k;
 {{range getvs "/upstream/*"}}
     server {{.}};
 {{end}}
