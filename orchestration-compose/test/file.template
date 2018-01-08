@@ -1,0 +1,4 @@
+{{ preamble }}
+{% for element in elements %}
+  {{ element.key }}: {{ element.value }}
+{% endfor %}

@@ -1,0 +1,20 @@
+version: "3"
+services:
+  configuration-store:
+    image: quay.io/coreos/etcd:v3.3.0
+    networks:
+      config:
+        aliases:
+          - cstore
+  load-balancer:
+    build: ./nginx
+    networks:
+      config:
+      workers:
+  queue:
+    image: redis:latest
+
+
+networks:
+  config:
+  workers:

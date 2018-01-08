@@ -1,0 +1,11 @@
+backend = "etcd"
+confdir = "/etc/confd"
+log-level = "debug"
+interval = 30
+nodes = [
+  "http://instance.etcd:4001",
+]
+noop = true
+prefix = "/"
+scheme = "http"
+

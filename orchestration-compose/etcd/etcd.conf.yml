@@ -1,0 +1,20 @@
+# This is the configuration file for the etcd server.
+#
+# # Human-readable name for this member.
+name: 'default'
+#
+# # Path to the data directory.
+# data-dir:
+#
+# # Number of committed transactions to trigger a snapshot to disk.
+snapshot-count: 10000
+
+# List of comma separated URLs to listen on for client traffic.
+listen-client-urls: http://0.0.0.0:2379
+
+# List of this member's client URLs to advertise to the public.
+# # The URLs needed to be a comma-separated list.
+advertise-client-urls: http://0.0.0.0:2379
+
+# Enable debug-level logging for etcd.
+debug: false
