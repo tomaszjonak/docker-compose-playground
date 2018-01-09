@@ -36,6 +36,12 @@ class EtcdCtl(object):
         subprocess.check_call(cmd)
 
 
+class DockerCtl(object):
+    @classmethod
+    def get_ip_in_network(cls, contanier_id, network):
+        pass
+
+
 class EventProcessor(threading.Thread):
     def __init__(self, que: queue.Queue):
         self.queue = que

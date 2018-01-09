@@ -8,13 +8,28 @@ services:
           - cstore
   load-balancer:
     ports:
-      - "80:80"
+      - "127.0.0.1:80:80"
     build: ./nginx
     networks:
-      config:
-      workers:
+      - config
+      - workers
+    depends_on:
+      - configuration-store
+      - fetcher
   queue:
     image: redis:alpine
+    networks:
+      workers:
+        aliases:
+          - queue
+  fetcher:
+    build: ./fetcher
+    networks:
+      - workers
+    depends_on:
+      - configuration-store
+      - queue
 networks:
   config:
   workers:
+
