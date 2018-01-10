@@ -26,10 +26,17 @@ scrape_configs:
     static_configs:
       - targets: ['localhost:9090']
   # Load balanced stuff
-  - job_name: fetcher_stats
+  - job_name: fetchers
     dns_sd_configs:
       - names:
         - fetcher
+        refresh_interval: 10s
+        type: A
+        port: 8080
+  - job_name: processors
+    dns_sd_configs:
+      - names:
+        - processor
         refresh_interval: 10s
         type: A
         port: 8080

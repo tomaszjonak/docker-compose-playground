@@ -2,6 +2,7 @@ import redis
 import logging
 import random
 import time
+import prometheus_client as pclient
 
 logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(name)s|%(threadName)s] %(levelname)s: %(message)s')
 
@@ -15,6 +16,7 @@ except redis.ConnectionError as e:
     logging.exception(e)
     exit(-1)
 
+pclient.start_http_server(addr='0.0.0.0', port=8080)
 
 while True:
     task = red_con.blpop('queue:tasks')
