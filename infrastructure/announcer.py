@@ -4,6 +4,8 @@ import queue
 import threading
 import logging
 
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(name)s|%(threadName)s] %(levelname)s: %(message)s')
+
 
 class DataHarvester(threading.Thread):
     def __init__(self, proc, que: queue.Queue):
@@ -14,7 +16,7 @@ class DataHarvester(threading.Thread):
     def run(self):
         for line in iter(self.proc.stdout.readline, b''):
             try:
-                data = json.dumps(line)
+                data = json.loads(line.decode())
                 self.queue.put(data)
             except Exception as e:
                 logging.exception(e)
@@ -28,18 +30,18 @@ class EtcdCtl(object):
     @classmethod
     def announce_upstream(cls, name, address):
         cmd = cls.base_command + ['mk', cls.fetcher_resource.format(name), str(address)]
-        subprocess.check_call(cmd)
+        try:
+            subprocess.check_call(cmd)
+        except subprocess.CalledProcessError as e:
+            logging.exception(e)
 
     @classmethod
     def deannounce_upstream(cls, name):
         cmd = cls.base_command + ['rm', cls.fetcher_resource.format(name)]
-        subprocess.check_call(cmd)
-
-
-class DockerCtl(object):
-    @classmethod
-    def get_ip_in_network(cls, contanier_id, network):
-        pass
+        try:
+            subprocess.check_call(cmd)
+        except subprocess.CalledProcessError as e:
+            logging.exception(e)
 
 
 class EventProcessor(threading.Thread):
@@ -50,22 +52,23 @@ class EventProcessor(threading.Thread):
     def run(self):
         while True:
             curr = self.queue.get()
+            logging.debug('Caught event: {}'.format((curr['action'], curr['service'])))
             if curr['service'] != 'fetcher':
                 continue
 
-            if curr['action'] == 'create':
+            if curr['action'] == 'start':
                 self.handle_start(curr)
-            if curr['action'] == 'stop':
+            if curr['action'] == 'kill':
                 self.handle_stop(curr)
 
     @staticmethod
     def handle_start(data):
         # TODO make this able to read ip address in desired network
-        EtcdCtl.announce_upstream(data['name'], None)
+        EtcdCtl.announce_upstream(data['attributes']['name'], data['attributes']['name'])
 
     @staticmethod
     def handle_stop(data):
-        EtcdCtl.deannounce_upstream(data['name'])
+        EtcdCtl.deannounce_upstream(data['attributes']['name'])
 
 
 def main():
