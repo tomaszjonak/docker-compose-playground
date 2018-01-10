@@ -38,6 +38,13 @@ services:
       - processors
     depends_on:
       - queue
+  prometheus:
+    build: ./prometheus
+    ports:
+      - "127.0.0.1:9090:9090"
+    networks:
+      - fetchers
+      - processors
 networks:
   config:
   fetchers:

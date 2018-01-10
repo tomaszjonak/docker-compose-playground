@@ -1,6 +1,6 @@
 backend = "etcd"
 confdir = "/etc/confd"
-log-level = "debug"
+log-level = "info"
 interval = 30
 nodes = [
   "http://cstore:2379",
