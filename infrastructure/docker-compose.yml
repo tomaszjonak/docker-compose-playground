@@ -12,24 +12,34 @@ services:
     build: ./nginx
     networks:
       - config
-      - workers
+      - fetchers
     depends_on:
       - configuration-store
       - fetcher
   queue:
     image: redis:alpine
     networks:
-      workers:
+      fetchers:
+        aliases:
+          - queue
+      processors:
         aliases:
           - queue
   fetcher:
     build: ./fetcher
     networks:
-      - workers
+      - fetchers
     depends_on:
       - configuration-store
       - queue
+  processor:
+    build: ./processor
+    networks:
+      - processors
+    depends_on:
+      - queue
 networks:
   config:
-  workers:
+  fetchers:
+  processors:
 

@@ -6,7 +6,7 @@ import hashlib
 import random
 import time
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s [%(name)s|%(threadName)s] %(levelname)s: %(message)s')
 
 fetcher = bottle.default_app()
 fetcher.config.load_config('./config.conf')
