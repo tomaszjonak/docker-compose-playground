@@ -16,6 +16,7 @@ except redis.ConnectionError as e:
     logging.exception(e)
     exit(-1)
 
+tasks_processed = pclient.Counter('tasks_processed', "Amount of tasks processed")
 pclient.start_http_server(addr='0.0.0.0', port=8080)
 
 while True:
@@ -23,3 +24,4 @@ while True:
     logging.debug('Processing task ({})'.format(task))
     time.sleep(random.uniform(0, 5))
     logging.info('Task processing done')
+    tasks_processed.inc()
