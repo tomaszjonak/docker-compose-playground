@@ -8,7 +8,7 @@ services:
           - cstore
   load-balancer:
     ports:
-      - "127.0.0.1:80:80"
+      - "127.0.0.1:80:80/tcp"
     build: ./nginx
     networks:
       - config
@@ -41,12 +41,20 @@ services:
   prometheus:
     build: ./prometheus
     ports:
-      - "127.0.0.1:9090:9090"
+      - "127.0.0.1:9090:9090/tcp"
     networks:
       - fetchers
       - processors
+      - monitoring
+  grafana:
+    build: ./grafana
+    ports:
+      - "127.0.0.1:3000:3000/tcp"
+    networks:
+      - monitoring
 networks:
   config:
   fetchers:
   processors:
+  monitoring:
 
