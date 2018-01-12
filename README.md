@@ -35,7 +35,7 @@ docker-compose up (this call blocks)
 | Access | Proxy                                   |
 
 Leave rest as defaults
-8. Import dashboards from (/infrastructure/grafana) and set their data source to prometheus
+8. Import service dashboard (/infrastructure/grafana/monitoring.json) and set data source to prometheus
 7. trigger some work from localhost (mess with secret or invalid payload structure)
 ```
 curl localhost:80 -XPOST -d '{"secret": "c4bbcb1fbec99d65bf59d85c8cb62ee2db963f0fe106f483d9afa73bd4e39a8a", "data": "some_data"}'
