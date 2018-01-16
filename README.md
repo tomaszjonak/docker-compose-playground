@@ -24,7 +24,7 @@ docker-compose build
 ```
 5. Startup whole thing (this call blocks and shows logs from each instance)
 ```
-docker-compose up (this call blocks)
+docker-compose up
 ```
 6. Log in to grafana localhost:3000 (admin:admin)
 7. Connect prometheus data source (when grafana 5.0 gets released this wont be necessary any longer)
