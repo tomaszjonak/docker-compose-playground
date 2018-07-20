@@ -8,7 +8,8 @@ Simple container structure to test docker features. There's going to be load bal
 - [X] make receivers and workers "automatically" scallable
 - [X] throw prometheus/grafana in the mix to visualise whats working
 - [ ] Add autoconfiguration of grafana dashboards
-- [ ] \(when graphana 5 is out) configure prometheus data source in graphana out of the box 
+- [ ] \(when graphana 5 is out) configure prometheus data source in graphana out of the box
+- [ ] Use docker provided dns for service discovery
 
 # Notes
 - not using swarm/kubernets yet, I'd like to keep this somewhat simple
