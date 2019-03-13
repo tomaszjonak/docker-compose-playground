@@ -2,7 +2,7 @@
 Simple container structure to test docker features. There's going to be load balancer, some data receivers putting stuff to redis instance and worker pool eating redis data.
 
 # Goals
-- [ ] ~~Make docker-compose file for each "independent" part~~ (turns out it's not convinient in any way)
+- [ ] ~~Make docker-compose file for each "independent" part~~ (turns out it's not convenient in any way)
 - [X] use etcdb to store configuration data (this thing gave me headache)
 - [X] orchestrate data receivers to announce themselves on load balancer
 - [X] make receivers and workers "automatically" scallable
